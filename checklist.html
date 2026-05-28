@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Umbrella Brand Strategy — Self-Assessment</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F9F9F9;
+    --ink: #1D1D1D;
+    --red: #FF523D;
+    --teal: #28D9C2;
+    --sand: #EDD9C2;
+    --ink-60: rgba(29,29,29,0.6);
+    --ink-12: rgba(29,29,29,0.12);
+    --ink-06: rgba(29,29,29,0.06);
+    --teal-15: rgba(40,217,194,0.15);
+    --red-10: rgba(255,82,61,0.10);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .header {
+    margin-bottom: 3rem;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--red);
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: var(--ink-60);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  .sections { margin-bottom: 2.5rem; }
+
+  .section { margin-bottom: 2rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--sand);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-60);
+  }
+
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    border: 1px solid transparent;
+    margin-bottom: 4px;
+    background: transparent;
+    user-select: none;
+  }
+
+  .item:hover { background: var(--ink-06); }
+
+  .item.checked {
+    background: var(--teal-15);
+    border-color: rgba(40,217,194,0.35);
+  }
+
+  .checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1.5px solid var(--ink-12);
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+    background: white;
+  }
+
+  .item.checked .checkbox {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+
+  .checkmark {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.15s, transform 0.15s;
+  }
+
+  .item.checked .checkmark { opacity: 1; transform: scale(1); }
+
+  .item-text {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 300;
+    transition: color 0.15s;
+  }
+
+  .item.checked .item-text {
+    color: var(--ink-60);
+    text-decoration: line-through;
+    text-decoration-color: rgba(29,29,29,0.25);
+  }
+
+  .score-panel {
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .score-panel::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: rgba(40,217,194,0.08);
+  }
+
+  .score-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .score-number {
+    font-family: 'Inter', sans-serif;
+    font-size: 48px;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: white;
+  }
+
+  .score-denom {
+    font-size: 18px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 300;
+    align-self: flex-end;
+    margin-bottom: 6px;
+  }
+
+  .score-badge {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 99px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.7);
+    transition: all 0.3s;
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+
+  .score-badge.great { background: rgba(40,217,194,0.2); color: var(--teal); }
+  .score-badge.good  { background: rgba(237,217,194,0.2); color: var(--sand); }
+  .score-badge.warn  { background: rgba(255,82,61,0.2); color: var(--red); }
+
+  .bar-track {
+    height: 3px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 99px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 3px;
+    border-radius: 99px;
+    background: var(--teal);
+    width: 0%;
+    transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .score-msg {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+  }
+
+  .cta-block {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .cta-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    max-width: 320px;
+    line-height: 1.5;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--red);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.15s, transform 0.15s;
+    flex-shrink: 0;
+  }
+
+  .cta-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .divider {
+    height: 1px;
+    background: var(--ink-06);
+    margin: 0 0 2rem;
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 2rem 1rem 4rem; }
+    .score-number { font-size: 40px; }
+    .cta-block { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <p class="eyebrow">Brand Architecture</p>
+    <h1>Is your umbrella brand<br>strategy <em>on track?</em></h1>
+    <p class="subtitle">Run through this before your next acquisition, product launch, or market expansion. Be honest.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sections" id="sections"></div>
+
+  <div class="score-panel">
+    <div class="score-top">
+      <div style="display:flex;align-items:flex-end;gap:6px;">
+        <span class="score-number" id="n">0</span>
+        <span class="score-denom">/ 12</span>
+      </div>
+      <span class="score-badge" id="badge">Not started</span>
+    </div>
+    <div class="bar-track"><div class="bar-fill" id="bar"></div></div>
+    <p class="score-msg" id="msg">Check each item that applies to your organization.</p>
+    <div class="cta-block">
+      <p class="cta-text">Not sure how to close the gaps? Tell us where you are — we'll help you figure out the next step.</p>
+      <a class="cta-btn" href="https://admindagency.com/contact/">Book a free consultation →</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const data = [
+  {
+    num: "01",
+    title: "Architecture",
+    items: [
+      "We have a documented brand architecture defining the relationship between our parent brand and all sub-brands",
+      "The architecture decision was made deliberately — not by default or historical accident",
+      "Everyone in senior leadership could describe our brand model consistently"
+    ]
+  },
+  {
+    num: "02",
+    title: "Permission & fit",
+    items: [
+      "We have assessed whether our parent brand has genuine permission to cover all current sub-brands",
+      "Any new extension or acquisition goes through a brand fit assessment before integration begins",
+      "We can articulate what our parent brand will not cover — and why"
+    ]
+  },
+  {
+    num: "03",
+    title: "Governance",
+    items: [
+      "We have a central brand portal or asset library accessible to all teams",
+      "There is a named person or team responsible for brand governance across the organization",
+      "Sub-brands operate with clear rules about what is fixed and what is flexible"
+    ]
+  },
+  {
+    num: "04",
+    title: "Measurement",
+    items: [
+      "We conduct brand audits at least annually",
+      "We track brand asset usage across divisions",
+      "We have a process for escalating brand consistency issues"
+    ]
+  }
+];
+
+const states = [
+  { max: 3,  badge: "Needs attention", cls: "warn", msg: "Significant structural gaps that will compound over time. The Architecture section is the best place to start." },
+  { max: 7,  badge: "In progress",     cls: "",     msg: "You have a partial foundation. Addressing the unchecked items will reduce long-term brand drift." },
+  { max: 10, badge: "Good foundation", cls: "good", msg: "Solid foundation — a few specific areas are worth addressing before they become problems." },
+  { max: 12, badge: "Well-governed",   cls: "great",msg: "Your brand architecture is genuinely well-governed. The next step is making sure it stays that way as you grow." }
+];
+
+const container = document.getElementById('sections');
+
+data.forEach(section => {
+  const sec = document.createElement('div');
+  sec.className = 'section';
+
+  const hdr = document.createElement('div');
+  hdr.className = 'section-header';
+  hdr.innerHTML = `<div class="section-num">${section.num}</div><span class="section-title">${section.title}</span>`;
+  sec.appendChild(hdr);
+
+  section.items.forEach(text => {
+    const item = document.createElement('div');
+    item.className = 'item';
+    item.setAttribute('role', 'checkbox');
+    item.setAttribute('aria-checked', 'false');
+    item.setAttribute('tabindex', '0');
+    item.innerHTML = `
+      <div class="checkbox" aria-hidden="true">
+        <svg class="checkmark" width="10" height="8" viewBox="0 0 10 8" fill="none">
+          <path d="M1 4L3.8 7L9 1" stroke="#1D1D1D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="item-text">${text}</span>
+    `;
+
+    const toggle = () => {
+      const on = item.classList.toggle('checked');
+      item.setAttribute('aria-checked', String(on));
+      update();
+    };
+
+    item.addEventListener('click', toggle);
+    item.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); } });
+    sec.appendChild(item);
+  });
+
+  container.appendChild(sec);
+});
+
+function update() {
+  const n = document.querySelectorAll('.item.checked').length;
+  document.getElementById('n').textContent = n;
+  document.getElementById('bar').style.width = (n / 12 * 100) + '%';
+  const s = states.find(x => n <= x.max) || states[states.length - 1];
+  const badge = document.getElementById('badge');
+  badge.textContent = s.badge;
+  badge.className = 'score-badge' + (s.cls ? ' ' + s.cls : '');
+  document.getElementById('msg').textContent = s.msg;
+}
+</script>
+</body>
+</html>
