@@ -429,15 +429,6 @@ function update() {
   document.getElementById('msg').textContent = s.msg;
 }
 </script>
- <script>
-function sendHeight(){
-  window.parent.postMessage({frameHeight: document.body.scrollHeight + 32}, '*');
-}
-window.addEventListener('load', sendHeight);
-window.addEventListener('resize', sendHeight);
-document.querySelectorAll('.item').forEach(function(i){
-  i.addEventListener('click', function(){ setTimeout(sendHeight, 200); });
-});
-</script>
+ 
 </body>
 </html>
